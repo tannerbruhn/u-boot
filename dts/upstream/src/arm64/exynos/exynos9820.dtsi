@@ -928,6 +928,51 @@
 			interrupts = <GIC_SPI 251 IRQ_TYPE_LEVEL_HIGH>;
 		};
 
+		pcie0: pcie@13ed0000 {
+			compatible = "samsung,exynos9820-pcie";
+			reg = <0x13ed0000 0x1000>,
+			      <0x13f00000 0x1000>,
+			      <0x14ffe000 0x2000>,
+			      <0x13c20000 0x9000>;
+			reg-names = "elbi", "dbi", "config", "sysmmu";
+			interrupts = <GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "intx";
+			clocks = <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_DBI_ACLK>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_MSTR_ACLK>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_SLV_ACLK>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_PCIE_SUB_CTRL_INST_0_I_DRIVER_APB_CLK>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_IEEE1500_WRAPPER_FOR_PCIEG2_PHY_X1_INST_0_I_SCL_APB_PCLK>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_PIPE2_DIGITAL_X1_WRAP_INST_0_I_APB_PCLK_SCL>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_PCIE_GEN2_PHY_REFCLK_IN>,
+				 <&cmu_fsys1 CLK_GOUT_FSYS1_SYSMMU_FSYS1>;
+			clock-names = "dbi", "master", "slave", "apb", "phy-apb",
+				      "pcs-apb", "ref", "sysmmu";
+			phys = <&pcie0_phy>;
+			phy-names = "pcie";
+			samsung,sysreg = <&sysreg_fsys1>;
+			device_type = "pci";
+			#address-cells = <3>;
+			#size-cells = <2>;
+			bus-range = <0x00 0xff>;
+			ranges = <0x82000000 0 0x14000000 0x14000000 0 0xff0000>;
+			#interrupt-cells = <1>;
+			interrupt-map-mask = <0 0 0 0>;
+			interrupt-map = <0 0 0 0 &gic GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH>;
+			num-lanes = <1>;
+			max-link-speed = <1>;
+			status = "disabled";
+		};
+
+		pcie0_phy: phy@13ef0000 {
+			compatible = "samsung,exynos9820-pcie-phy";
+			reg = <0x13ef0000 0x1000>, <0x13ee0000 0x1fc>;
+			reg-names = "pma", "pcs";
+			#phy-cells = <0>;
+			samsung,pmu-syscon = <&pmu_system_controller>;
+			samsung,sysreg = <&sysreg_fsys1>;
+			status = "disabled";
+		};
+
 		ufs: ufs@13d60000 {
 			compatible = "samsung,exynos9820-ufs";
 			reg = <0x13d60000 0x200>,	/* 0: HCI standard */

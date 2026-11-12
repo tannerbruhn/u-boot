@@ -37,3 +37,79 @@
 	constant-charge-current-max-microamp = <2350000>;
 	charge-full-design-microamp-hours = <3300000>;
 };
+
+/ {
+	wifi_power: regulator-wifi {
+		compatible = "regulator-fixed";
+		regulator-name = "wlan-reg-on";
+		gpio = <&gpg0 5 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		startup-delay-us = <200000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&wifi_enable>;
+	};
+};
+
+&pcie0 {
+	reset-gpios = <&gpf2 2 GPIO_ACTIVE_LOW>;
+	vpcie-supply = <&wifi_power>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&wifi_clkreq &wifi_perst &wifi_pcie_wake &wifi_host_wake>;
+	status = "okay";
+
+	pcie@0 {
+		reg = <0 0 0 0 0>;
+		#address-cells = <3>;
+		#size-cells = <2>;
+		ranges;
+
+		wifi@0 {
+			compatible = "brcm,bcm4375-fmac", "brcm,bcm4329-fmac";
+			reg = <0 0 0 0 0>;
+			interrupts-extended = <&gpa0 7 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "host-wake";
+		};
+	};
+};
+
+&pcie0_phy {
+	status = "okay";
+};
+
+&pinctrl_fsys1 {
+	wifi_clkreq: wifi-clkreq-pins {
+		samsung,pins = "gpf2-0";
+		samsung,pin-function = <2>;
+		samsung,pin-pud = <3>;
+		samsung,pin-drv = <3>;
+	};
+
+	wifi_perst: wifi-perst-pins {
+		samsung,pins = "gpf2-2";
+		samsung,pin-function = <1>;
+		samsung,pin-drv = <3>;
+	};
+};
+
+&pinctrl_peric0 {
+	wifi_enable: wifi-enable-pins {
+		samsung,pins = "gpg0-5";
+		samsung,pin-function = <1>;
+		samsung,pin-pud = <0>;
+		samsung,pin-drv = <3>;
+	};
+};
+
+&pinctrl_alive {
+	wifi_host_wake: wifi-host-wake-pins {
+		samsung,pins = "gpa0-7";
+		samsung,pin-function = <EXYNOS_PIN_FUNC_EINT>;
+		samsung,pin-pud = <1>;
+	};
+
+	wifi_pcie_wake: wifi-pcie-wake-pins {
+		samsung,pins = "gpa3-2";
+		samsung,pin-function = <0>;
+		samsung,pin-pud = <0>;
+	};
+};
