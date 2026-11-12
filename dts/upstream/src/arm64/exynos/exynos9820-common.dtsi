@@ -113,6 +113,15 @@
 			no-map;
 		};
 
+		/*
+		 * Debug-snapshot area (DSS_START_ADDR in the vendor kernel). It is still
+		 * written after boot, so anything Linux puts here gets corrupted.
+		 */
+		debug_snapshot@fd900000 {
+			reg = <0x0 0xfd900000 0x2700000>;
+			no-map;
+		};
+
 		el2_earlymem@9fd800000 {
 			reg = <0x9 0xfd800000 0x2800000>;
 			no-map;
