@@ -113,3 +113,7 @@
 		samsung,pin-pud = <0>;
 	};
 };
+
+&gpu {
+	status = "okay";
+};
