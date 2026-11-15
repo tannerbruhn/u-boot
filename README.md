@@ -1,3 +1,11 @@
+> **Galaxy S10 (SM-G973F) fork.** The `main` branch adds the S10 device tree pieces for postmarketOS on the
+> mainline Exynos 9820 port: PCIe Wi-Fi, the reserved bootloader debug-log area, and the Mali-G76 GPU node (adapted
+> from Gregor Sprint's work in omnipha/linux-samsung-s10-exynos9820) with the GPU rates up to the stock 702 MHz.
+> This S10 work was written by AI and tested on the phone. Kernel:
+> [tannerbruhn/exynos-9820-mainline-linux](https://github.com/tannerbruhn/exynos-9820-mainline-linux) (S10-WIFI.md has
+> install notes); LLMs on the phone: [tannerbruhn/s10-llm-recipes](https://github.com/tannerbruhn/s10-llm-recipes).
+> Updates: [@t24_lab on X](https://x.com/t24_lab).
+
 # Installation (Ubuntu 26.04 Host)
 
 ## Dependencies
