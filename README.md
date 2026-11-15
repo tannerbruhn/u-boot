@@ -1,6 +1,7 @@
 > **Galaxy S10 (SM-G973F) fork.** The `main` branch adds the S10 device tree pieces for postmarketOS on the
 > mainline Exynos 9820 port: PCIe Wi-Fi, the reserved bootloader debug-log area, and the Mali-G76 GPU node (adapted
-> from Gregor Sprint's work in omnipha/linux-samsung-s10-exynos9820) with the GPU rates up to the stock 702 MHz.
+> from Gregor Sprint's work in omnipha/linux-samsung-s10-exynos9820) with the GPU rates up to the stock 702 MHz,
+> and the cluster 0 hardware watchdog.
 > This S10 work was written by AI and tested on the phone. Install notes: S10-WIFI.md in the kernel fork.
 
 > **The S10 project.**
