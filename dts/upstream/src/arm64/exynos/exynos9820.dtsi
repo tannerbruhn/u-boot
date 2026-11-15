@@ -720,6 +720,22 @@
 				     <GIC_SPI 477 IRQ_TYPE_LEVEL_HIGH>;
 		};
 
+		/*
+		 * Cluster 0 (little cores) watchdog, from the Samsung vendor device tree (watchdog_cl0@10050000,
+		 * 30 s timeout there). The cluster 2 watchdog at 0x10060000 (SPI 465) stays unused: thermal
+		 * mitigation can take the big cores offline.
+		 */
+		watchdog_cl0: watchdog@10050000 {
+			compatible = "samsung,exynos9820-wdt";
+			reg = <0x10050000 0x100>;
+			interrupts = <GIC_SPI 464 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&cmu_peris CLK_GOUT_PERIS_WDT_CLUSTER0_PCLK>,
+				 <&oscclk>;
+			clock-names = "watchdog", "watchdog_src";
+			samsung,syscon-phandle = <&pmu_system_controller>;
+			samsung,cluster-index = <0>;
+		};
+
 		tmu_top: thermal-sensor@10090000 {
 			compatible = "samsung,exynos9820-tmu-top";
 			reg = <0x10090000 0x800>;
