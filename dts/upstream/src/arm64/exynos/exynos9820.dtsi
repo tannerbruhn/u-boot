@@ -529,8 +529,8 @@
 
 		/*
 		 * Rates from the vendor G3D DVFS table. ACPM programs the
-		 * rail, so these entries have no opp-microvolt. The upper
-		 * vendor rates stay out until a measured G3D cooling model exists.
+		 * rail, so these entries have no opp-microvolt. 702 MHz is
+		 * the stock maximum; ACPM rejects rates outside its table.
 		 */
 		opp-156000000 {
 			opp-hz = /bits/ 64 <156000000>;
@@ -554,6 +554,18 @@
 
 		opp-433000000 {
 			opp-hz = /bits/ 64 <433000000>;
+		};
+
+		opp-572000000 {
+			opp-hz = /bits/ 64 <572000000>;
+		};
+
+		opp-650000000 {
+			opp-hz = /bits/ 64 <650000000>;
+		};
+
+		opp-702000000 {
+			opp-hz = /bits/ 64 <702000000>;
 		};
 	};
 
