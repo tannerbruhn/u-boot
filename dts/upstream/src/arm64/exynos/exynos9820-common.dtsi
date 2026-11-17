@@ -83,10 +83,6 @@
 			no-map;
 		};
 
-		secure_camera@96000000 {
-			reg = <0x0 0x96000000 0x2200000>;
-			no-map;
-		};
 
 		seclog_mem@c0000000 {
 			reg = <0x0 0xc0000000 0x80000>;
@@ -98,11 +94,13 @@
 			no-map;
 		};
 
-		modem_spare@d0000000 {
-			reg = <0x0 0xd0000000 0x1600000>;
-			no-map;
-		};
 
+		/*
+		 * secure_camera@96000000 (34 MB) and modem_spare@d0000000 (22 MB) are not reserved: mainline runs neither
+		 * the secure camera nor the modem, and both ranges passed CPU and DMA tests as normal RAM (one phone,
+		 * experimental). modem_if and cp_ram_logging stay reserved: releasing them hangs the boot (device access
+		 * to the 0xf0000000 window fails).
+		 */
 		modem_if@f0000000 {
 			reg = <0x0 0xf0000000 0xb900000>;
 			no-map;
